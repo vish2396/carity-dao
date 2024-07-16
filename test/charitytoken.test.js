@@ -2,7 +2,6 @@ const CharityToken = artifacts.require("CharityToken");
 
 contract("CharityToken", (accounts) => {
   before(async () => {
-    // Ensure the contract is deployed
     this.charityTokenInstance = await CharityToken.deployed();
   });
 
