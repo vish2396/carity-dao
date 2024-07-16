@@ -1,14 +1,23 @@
 const CharityToken = artifacts.require("CharityToken");
 
-contract("CharityToken", accounts => {
+contract("CharityToken", (accounts) => {
+  before(async () => {
+    // Ensure the contract is deployed
+    this.charityTokenInstance = await CharityToken.deployed();
+  });
+
   it("should put 10000 CharityToken in the first account", async () => {
-    const instance = await CharityToken.deployed();
+    const chai = await import('chai');
+    const { assert } = chai;
+    const instance = this.charityTokenInstance;
     const balance = await instance.balanceOf(accounts[0]);
-    assert.equal(balance.valueOf(), 10000, "10000 wasn't in the first account");
+    assert.equal(balance.toNumber(), 10000, "10000 wasn't in the first account");
   });
 
   it("should transfer tokens correctly", async () => {
-    const instance = await CharityToken.deployed();
+    const chai = await import('chai');
+    const { assert } = chai;
+    const instance = this.charityTokenInstance;
     await instance.transfer(accounts[1], 500, { from: accounts[0] });
 
     const balance1 = await instance.balanceOf(accounts[0]);
